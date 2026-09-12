@@ -89,14 +89,13 @@ export default function LandingPage() {
         <div className="grid items-center gap-12 md:grid-cols-2">
           <div>
             <h1 className="text-4xl font-semibold leading-tight tracking-tight text-gray-900 sm:text-5xl">
-A self-hosted wiki with Notion's pages and Obsidian's graph
+Notion meets Obsidian
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-gray-500">
-              Minimal pairs the part of Notion a small team actually uses, nested pages,
-              tables, checklists and a shared workspace teammates join by email, with the
-              part of Obsidian that makes notes worth keeping: every page shows what links
-              to it, and the whole workspace renders as a graph. Fully self-hosted, with no
-              external accounts required.
+              Notion gives you the pages. Obsidian shows you how they connect. Minimal
+              does both, on a server you control: nested pages, tables and checklists your
+              team edits together, a list on every page of what links to it, and a graph of
+              the whole workspace. Nothing leaves your machine.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link
@@ -133,15 +132,15 @@ A self-hosted wiki with Notion's pages and Obsidian's graph
         <div className="mx-auto max-w-6xl px-6">
           <div className="mb-14 max-w-2xl">
             <h2 className="text-3xl font-semibold tracking-tight text-gray-900">
-Notion's core loop, plus the links between your pages
+The part of Notion you actually use
             </h2>
             <p className="mt-4 text-base text-gray-500">
-              No accounts to manage, no pricing tiers, no feature bloat. Nested pages,
-              tables and shared editing, plus an Obsidian-style knowledge layer that maps
-              how all of it connects.
+              No plans to compare, no seats to buy, no features you will never open.
+              Pages, tables, checklists, a workspace your team joins by email, and the
+              links between all of it drawn as a map.
             </p>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2">
             <FeatureCard
               icon="⌂"
               title="Nested pages"
@@ -156,6 +155,11 @@ Notion's core loop, plus the links between your pages
               icon="▤"
               title="Real blocks, including tables"
               description="Text, headings, checklists, and tables with a Notion-style row view. Enough structure for real documentation."
+            />
+            <FeatureCard
+              icon="◈"
+              title="Backlinks and a graph"
+              description="Every page lists what links to it. The whole workspace draws itself as a graph, out of links you already wrote."
             />
           </div>
         </div>
@@ -176,7 +180,7 @@ Notion's core loop, plus the links between your pages
             <Step
               number="2"
               title="Write and nest pages"
-              description="Create a page, nest it under another, and add text, heading, or checklist blocks."
+              description="Create a page, nest it under another, add text, tables and checklists. Link one page to another and the graph redraws itself."
             />
             <Step
               number="3"
@@ -207,10 +211,10 @@ Notion's core loop, plus the links between your pages
       <section className="py-24">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="text-3xl font-semibold tracking-tight text-gray-900">
-            Start your team's wiki today
+            Put it on your own server
           </h2>
           <p className="mt-4 text-base text-gray-500">
-            Free, self-hosted, and ready in under a minute.
+            Clone it, run two commands, and it is live. Your data stays on your machine.
           </p>
           <div className="mt-8">
             <Link
@@ -229,7 +233,7 @@ Notion's core loop, plus the links between your pages
           <div className="grid gap-10 sm:grid-cols-4">
             <div>
               <span className="text-lg font-semibold tracking-tight text-gray-900">Minimal</span>
-              <p className="mt-3 text-sm text-gray-500">A self-hosted wiki. Notion's pages, Obsidian's graph.</p>
+              <p className="mt-3 text-sm text-gray-500">Notion's pages. Obsidian's graph. Your server.</p>
             </div>
             <div>
               <h4 className="mb-3 text-sm font-semibold text-gray-900">Product</h4>
