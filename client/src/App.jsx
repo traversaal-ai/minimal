@@ -9,6 +9,7 @@ import AppHome from './pages/AppHome.jsx';
 import PageDetail from './pages/PageDetail.jsx';
 import GraphView from './pages/GraphView.jsx';
 import DemoView from './pages/DemoView.jsx';
+import DocsPage from './pages/DocsPage.jsx';
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
+      <Route path="/docs" element={<DocsPage />} />
       <Route path="/demo" element={<DemoView />} />
       <Route path="/demo/pages/:id" element={<DemoView />} />
       <Route

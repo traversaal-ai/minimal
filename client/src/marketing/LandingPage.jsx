@@ -324,7 +324,7 @@ The part of Notion you actually use
             <div>
               <h4 className="mb-3 text-sm font-semibold text-gray-900">Resources</h4>
               <ul className="space-y-2 text-sm text-gray-500">
-                <li>Docs</li>
+                <li><a href="/docs" className="hover:text-accent">Docs</a></li>
                 <li>Self-hosting guide</li>
                 <li>Support</li>
               </ul>
