@@ -12,6 +12,24 @@ const CENTER = { x: WIDTH / 2, y: HEIGHT / 2 };
 // a workspace with a few heavily-linked pages and a few standalone ones
 // doesn't read as one undifferentiated ring. No physics simulation — good
 // enough at the scale a real workspace here reaches, and it never jitters.
+// Labels sit on the side of the node facing away from the centre, so two nodes
+// on neighbouring rings push their text in opposite directions instead of
+// stacking it in the same place. Nodes out at the left and right edges get
+// their label beside them rather than above, where there is more room.
+function labelPlacement(pos, radius) {
+  const dx = pos.x - CENTER.x;
+  const dy = pos.y - CENTER.y;
+  const dist = Math.hypot(dx, dy) || 1;
+  if (Math.abs(dx) / dist > 0.72) {
+    return dx > 0
+      ? { x: radius + 7, y: 4, anchor: 'start' }
+      : { x: -(radius + 7), y: 4, anchor: 'end' };
+  }
+  return dy >= 0
+    ? { x: 0, y: radius + 15, anchor: 'middle' }
+    : { x: 0, y: -(radius + 9), anchor: 'middle' };
+}
+
 function layoutNodes(nodes, edges) {
   const linkedIds = new Set();
   edges.forEach((e) => {
@@ -22,9 +40,11 @@ function layoutNodes(nodes, edges) {
   const isolated = nodes.filter((n) => !linkedIds.has(n.id));
 
   const positions = {};
-  const place = (list, radius) => {
+  // `offset` rotates a ring by half a step so the two rings interleave instead
+  // of lining their nodes (and therefore their labels) up along the same spokes.
+  const place = (list, radius, offset = 0) => {
     list.forEach((n, i) => {
-      const angle = (i / Math.max(list.length, 1)) * 2 * Math.PI - Math.PI / 2;
+      const angle = ((i + offset) / Math.max(list.length, 1)) * 2 * Math.PI - Math.PI / 2;
       positions[n.id] = {
         x: CENTER.x + radius * Math.cos(angle),
         y: CENTER.y + radius * Math.sin(angle),
@@ -32,8 +52,9 @@ function layoutNodes(nodes, edges) {
     });
   };
 
-  place(linked, Math.min(WIDTH, HEIGHT) / 2 - 100);
-  place(isolated, Math.min(WIDTH, HEIGHT) / 2 - 40);
+  const half = Math.min(WIDTH, HEIGHT) / 2;
+  place(linked, half - 150);
+  place(isolated, half - 44, 0.5);
 
   return positions;
 }
@@ -159,6 +180,7 @@ export default function GraphView() {
             const isHovered = hoveredId === n.id;
             const dim = hoveredId && !connectedIds.has(n.id);
             const radius = 5 + Math.min(degrees[n.id] || 0, 6) * 1.1 + (isHovered ? 2 : 0);
+            const label = labelPlacement(pos, radius);
             return (
               <g
                 key={n.id}
@@ -179,8 +201,9 @@ export default function GraphView() {
                 />
                 <circle r={radius} fill="none" stroke="rgba(0,0,0,0.1)" strokeWidth={1} />
                 <text
-                  y={-radius - 8}
-                  textAnchor="middle"
+                  x={label.x}
+                  y={label.y}
+                  textAnchor={label.anchor}
                   className="select-none"
                   fontSize={11}
                   fill={dim ? '#d1d5db' : isHovered ? '#111827' : '#4b5563'}
