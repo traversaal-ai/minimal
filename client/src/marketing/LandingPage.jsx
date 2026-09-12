@@ -89,13 +89,14 @@ export default function LandingPage() {
         <div className="grid items-center gap-12 md:grid-cols-2">
           <div>
             <h1 className="text-4xl font-semibold leading-tight tracking-tight text-gray-900 sm:text-5xl">
-A self-hosted wiki, inspired by Notion, sized for a small team
+A self-hosted wiki with Notion's pages and Obsidian's graph
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-gray-500">
-              Minimal is a simplified alternative inspired by Notion, built around what a
-              small team actually uses: nested pages, tables, checklists, and a shared
-              workspace teammates join by email. Fully self-hosted, with no external accounts
-              required.
+              Minimal pairs the part of Notion a small team actually uses, nested pages,
+              tables, checklists and a shared workspace teammates join by email, with the
+              part of Obsidian that makes notes worth keeping: every page shows what links
+              to it, and the whole workspace renders as a graph. Fully self-hosted, with no
+              external accounts required.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link
@@ -132,11 +133,12 @@ A self-hosted wiki, inspired by Notion, sized for a small team
         <div className="mx-auto max-w-6xl px-6">
           <div className="mb-14 max-w-2xl">
             <h2 className="text-3xl font-semibold tracking-tight text-gray-900">
-Inspired by Notion's core loop, none of the rest
+Notion's core loop, plus the links between your pages
             </h2>
             <p className="mt-4 text-base text-gray-500">
-              No accounts to manage, no pricing tiers, no feature bloat. Just the nested
-              pages, tables, and shared editing your team actually uses.
+              No accounts to manage, no pricing tiers, no feature bloat. Nested pages,
+              tables and shared editing, plus an Obsidian-style knowledge layer that maps
+              how all of it connects.
             </p>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -227,7 +229,7 @@ Inspired by Notion's core loop, none of the rest
           <div className="grid gap-10 sm:grid-cols-4">
             <div>
               <span className="text-lg font-semibold tracking-tight text-gray-900">Minimal</span>
-              <p className="mt-3 text-sm text-gray-500">A self-hosted wiki, inspired by Notion.</p>
+              <p className="mt-3 text-sm text-gray-500">A self-hosted wiki. Notion's pages, Obsidian's graph.</p>
             </div>
             <div>
               <h4 className="mb-3 text-sm font-semibold text-gray-900">Product</h4>
