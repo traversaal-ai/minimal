@@ -1,6 +1,76 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const HERO_SLIDES = [
+  { src: '/hero/pages.jpg', label: 'Pages, grouped the way your team thinks',
+    alt: 'A workspace dashboard with pages grouped into named sections' },
+  { src: '/hero/tables.jpg', label: 'Tables with real structure, not screenshots of one',
+    alt: 'A table of customers with contact, plan and coloured status columns' },
+  { src: '/hero/graph.jpg', label: 'And a map of how all of it connects',
+    alt: 'A graph of the workspace, pages as dots joined by the links between them' },
+];
+
+function HeroSlider() {
+  const [i, setI] = React.useState(0);
+  const [paused, setPaused] = React.useState(false);
+
+  React.useEffect(() => {
+    if (paused) return undefined;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return undefined;
+    }
+    const id = setInterval(() => setI((n) => (n + 1) % HERO_SLIDES.length), 4200);
+    return () => clearInterval(id);
+  }, [paused]);
+
+  return (
+    <div
+      className="w-full max-w-xl"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
+      <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl">
+        <div className="flex items-center gap-2 border-b border-gray-100 px-4 py-3">
+          <div className="h-3 w-3 rounded-full bg-red-300" />
+          <div className="h-3 w-3 rounded-full bg-yellow-300" />
+          <div className="h-3 w-3 rounded-full bg-green-300" />
+        </div>
+        <div className="relative aspect-[16/11] bg-white">
+          {HERO_SLIDES.map((s, n) => (
+            <img
+              key={s.src}
+              src={s.src}
+              alt={s.alt}
+              className="absolute inset-0 h-full w-full object-contain object-top transition-opacity duration-500"
+              style={{ opacity: n === i ? 1 : 0 }}
+              aria-hidden={n === i ? undefined : true}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="mt-4 flex items-center gap-3">
+        <div className="flex gap-2">
+          {HERO_SLIDES.map((s, n) => (
+            <button
+              key={s.src}
+              type="button"
+              onClick={() => setI(n)}
+              aria-label={s.label}
+              aria-current={n === i}
+              className={`h-2 rounded-full transition-all ${
+                n === i ? 'w-6 bg-accent' : 'w-2 bg-gray-300 hover:bg-gray-400'
+              }`}
+            />
+          ))}
+        </div>
+        <p className="text-sm text-gray-500">{HERO_SLIDES[i].label}</p>
+      </div>
+    </div>
+  );
+}
+
 function TreeMockup() {
   const rows = [
     { label: 'Onboarding', depth: 0, bold: true },
@@ -122,7 +192,7 @@ Notion meets Obsidian
             </div>
           </div>
           <div className="flex justify-center md:justify-end">
-            <TreeMockup />
+            <HeroSlider />
           </div>
         </div>
       </section>
