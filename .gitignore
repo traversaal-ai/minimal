@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Local SQLite database (runtime data, not source)
+server/data.db
+server/data.db-shm
+server/data.db-wal
+
+# Environment
+.env
+.env.local
+
+# Builds
+dist/
+build/
+*.tsbuildinfo
+
+# Editor and OS noise
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+npm-debug.log*

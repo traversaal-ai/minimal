@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minimal Build Record</title>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ground: #ffffff;
+    --ink: #15171a;
+    --ink-2: #6e6b68;
+    --ink-3: #9b9793;
+    --hair: #e7e3de;
+    --panel: #faf8f6;
+    --accent: #6a5cff;
+    --accent-deep: #4a3ad1;
+    --accent-tint: #f0eeff;
+    --pass: #1f7a46;
+    --pass-tint: #e9f5ee;
+    --warn: #9a5b00;
+    --warn-tint: #fff6e5;
+    --mark: #e6e2ff;
+    --hero-shade: rgba(21, 23, 26, 0.72);
+    --display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #141517; --ink: #ecebe8; --ink-2: #a9a6a1; --ink-3: #7b7873;
+      --hair: #2a2c30; --panel: #1b1d20; --accent: #8f84ff; --accent-deep: #b0a8ff;
+      --accent-tint: #211f33; --pass: #5fcf8a; --pass-tint: #16261c; --warn: #f0b64a; --warn-tint: #2a2214;
+      --mark: #322d55; --hero-shade: rgba(20, 21, 23, 0.8);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #141517; --ink: #ecebe8; --ink-2: #a9a6a1; --ink-3: #7b7873;
+    --hair: #2a2c30; --panel: #1b1d20; --accent: #8f84ff; --accent-deep: #b0a8ff;
+    --accent-tint: #211f33; --pass: #5fcf8a; --pass-tint: #16261c; --warn: #f0b64a; --warn-tint: #2a2214;
+    --mark: #322d55; --hero-shade: rgba(20, 21, 23, 0.8);
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--ground); color: var(--ink); font-family: var(--serif); font-size: 18px; line-height: 1.6; margin: 0; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent-deep); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .hero { position: relative; min-height: 300px; display: grid; align-items: end; background: var(--ink); color: #fff; overflow: hidden; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, #201c3a 0%, #15171a 60%); }
+  .hero-inner { position: relative; z-index: 1; width: min(1100px, 100% - 64px); margin: 0 auto; padding: 120px 0 44px; }
+  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+  .hero h1 { font-family: var(--display); font-weight: 800; font-size: clamp(40px, 6vw, 72px); line-height: 0.98; letter-spacing: -0.03em; margin: 0 0 18px; text-wrap: balance; max-width: 18ch; }
+  .hero p.lede { font-size: 20px; line-height: 1.45; max-width: 62ch; margin: 0 0 22px; color: rgba(255,255,255,0.88); }
+  .hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--mono); font-size: 12.5px; color: rgba(255,255,255,0.7); }
+  .hero .meta a { color: rgba(255,255,255,0.85); text-decoration-color: rgba(255,255,255,0.4); }
+
+  .wrap { width: min(1100px, 100% - 64px); margin: 0 auto; }
+  .measure { max-width: 70ch; }
+  section { padding: 56px 0 8px; }
+  section + section { border-top: 1px solid var(--hair); margin-top: 48px; }
+  h2 { font-family: var(--display); font-weight: 800; font-size: 34px; letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 10px; text-wrap: balance; }
+  h3 { font-family: var(--display); font-weight: 700; font-size: 20px; letter-spacing: -0.01em; margin: 40px 0 10px; }
+  p { margin: 0 0 18px; }
+  .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 12px; }
+  .sub { color: var(--ink-2); font-size: 19px; }
+  code, .mono { font-family: var(--mono); font-size: 0.85em; }
+  code { background: var(--panel); border: 1px solid var(--hair); border-radius: 4px; padding: 1px 6px; }
+  pre { background: var(--panel); border: 1px solid var(--hair); border-radius: 6px; padding: 16px 18px; overflow-x: auto; font-family: var(--mono); font-size: 13.5px; line-height: 1.6; margin: 14px 0 22px; }
+  pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+
+  .strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border: 1px solid var(--hair); border-radius: 6px; overflow: hidden; margin: 28px 0 8px; }
+  .strip div { padding: 18px 20px; border-right: 1px solid var(--hair); background: var(--panel); }
+  .strip div:last-child { border-right: 0; }
+  .strip b { display: block; font-family: var(--display); font-weight: 800; font-size: 30px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; margin-bottom: 6px; }
+  .strip span { font-family: var(--mono); font-size: 12px; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .tablewrap { overflow-x: auto; margin: 16px 0 24px; }
+  table { border-collapse: collapse; width: 100%; font-size: 15.5px; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--hair); vertical-align: top; }
+  th { font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: 0.02em; color: var(--ink-2); }
+  td.num { font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: 13.5px; }
+  td .mono, th .mono { font-size: 13.5px; }
+  .method { display: inline-block; font-family: var(--mono); font-size: 11.5px; font-weight: 500; padding: 1px 7px; border-radius: 3px; border: 1px solid var(--hair); color: var(--ink-2); min-width: 54px; text-align: center; }
+  .method.post { color: var(--accent-deep); border-color: var(--accent); }
+  .method.put { color: var(--warn); border-color: var(--warn); }
+  .method.delete { color: #b3261e; border-color: #b3261e; }
+
+  .pill { display: inline-block; font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.04em; padding: 2px 9px; border-radius: 999px; border: 1px solid; white-space: nowrap; }
+  .pass { color: var(--pass); background: var(--pass-tint); border-color: transparent; }
+  .na { color: var(--ink-3); background: var(--panel); border-color: var(--hair); }
+  .note { color: var(--warn); background: var(--warn-tint); border-color: transparent; }
+
+  ol.steps { counter-reset: s; list-style: none; padding: 0; margin: 12px 0 24px; }
+  ol.steps li { counter-increment: s; position: relative; padding: 12px 0 12px 48px; border-bottom: 1px solid var(--hair); }
+  ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 16px; font-family: var(--mono); font-size: 13px; color: var(--accent-deep); }
+  ul.plain { padding-left: 1.1em; margin: 0 0 18px; }
+  ul.plain li { margin: 6px 0; }
+  .callout { border-left: 3px solid var(--accent); background: var(--accent-tint); padding: 14px 18px; margin: 20px 0 24px; border-radius: 0 6px 6px 0; }
+  .callout p:last-child { margin: 0; }
+  mark { background: var(--mark); color: inherit; padding: 0 2px; }
+  footer { border-top: 1px solid var(--hair); margin-top: 56px; padding: 28px 0 60px; font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); line-height: 1.7; }
+</style>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Sprint Zero · worked example · Minimal</p>
+    <h1>What got built, and how it kept going</h1>
+    <p class="lede">One Sprint Zero run against Notion produced a real shared-workspace MVP in about twenty minutes. Everything after that — twelve rounds of features, one at a time, in conversation — is the part this record is really about.</p>
+    <div class="meta">
+      <span>Reference: <a href="https://www.notion.so">notion.so</a></span>
+      <span>Stack: node-react · local (SQLite + self-issued JWT)</span>
+      <span>Level: MVP</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="brief">
+  <p class="kicker">The ask</p>
+  <h2>The smallest real version of a team wiki</h2>
+  <div class="measure">
+    <p class="sub">Notion is a vast product — databases, real-time multiplayer, dozens of block types, granular sharing, templates, a gallery. Sprint Zero was pointed at it and scoped down hard: one shared workspace per team, pages that nest under other pages, three block types to start (text, heading, checklist), and teammates invited by email who can all view and edit the same pages.</p>
+    <p>Thirteen things were named and excluded up front so the agents couldn't wander: real-time multiplayer editing, granular roles, rich formatting, file uploads, templates, full-text search, version history, public share links, and more — all logged in <span class="mono">docs/scope.md</span>. The seed is real: a demo workspace ("Traversaal Team Wiki") with two demo members and a small real page tree — an Onboarding page with two nested sub-pages, and a Team norms page with checklist items already ticked.</p>
+  </div>
+  <div class="strip">
+    <div><b>6</b><span>spec docs written</span></div>
+    <div><b>31</b><span>API endpoints, final</span></div>
+    <div><b>~6,024</b><span>lines of app code</span></div>
+    <div><b>7</b><span>block types, final</span></div>
+    <div><b>12</b><span>features added after MVP</span></div>
+    <div><b>23/23</b><span>API tests at MVP</span></div>
+  </div>
+</section>
+
+<section id="built">
+  <p class="kicker">Part one</p>
+  <h2>The initial Sprint Zero run</h2>
+
+  <h3>The specification set, written in order</h3>
+  <div class="measure"><p>Nothing was coded until six documents existed, each written by an agent reading the ones before it — the last, the API contract, is the only file both engineers were allowed to build from.</p></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Document</th><th>What it settles</th></tr></thead>
+    <tbody>
+      <tr><td><span class="mono">scope.md</span></td><td>Reference (Notion), build config (web-app / node-react / local), MVP level, the core loop, and twenty excludes.</td></tr>
+      <tr><td><span class="mono">reference-brief.md</span></td><td>How Notion actually works — pages, blocks, workspaces, sharing — extracted as the surface worth cloning a sliver of.</td></tr>
+      <tr><td><span class="mono">prd.md</span></td><td>Named the product Minimal: one shared workspace per team, nested pages, three starting block types, email invites, self-hostable with no external account.</td></tr>
+      <tr><td><span class="mono">decisions.md</span></td><td>Every scope cut tied to the MVP level — the seed for what would later become a long, running amendment log.</td></tr>
+      <tr><td><span class="mono">user-stories.md</span></td><td>Acceptance criteria for the core loop: signup, create/nest pages, add blocks, invite, shared edit visible on reload.</td></tr>
+      <tr><td><span class="mono">api-contract.md</span></td><td>The shared interface both engineers built to — the same file that later grew to 31 endpoints across nine resource groups as features were added.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>The core loop, and what QA found</h3>
+  <div class="measure">
+    <p>A user signs up and lands in a workspace. They create a page, nest it under another page, and add text, heading, and checklist blocks. They invite a teammate by email; that teammate signs up (or logs in), sees the same workspace, opens any page in it, and edits a page another member created — visible to everyone on reload.</p>
+    <p>QA passed 23/23 API integration tests and 19/19 browser steps (full auth dance, core loop, expired-token handling) — and caught one real bug along the way: the "Add block" button stayed disabled after the first block was added, a missing <span class="mono">setSubmitting(false)</span> on the success path. Fixed before sign-off.</p>
+  </div>
+</section>
+
+<section id="amendments">
+  <p class="kicker">Part two</p>
+  <h2>Everything added after that, in order</h2>
+  <div class="measure"><p class="sub">Each of these was requested and built one at a time, in conversation, well past a typical Sprint Zero MVP. The full reasoning for each lives in <span class="mono">docs/decisions.md</span> under its own "Amendment" heading — this is the short version, in the order it happened.</p></div>
+
+  <ol class="steps">
+    <li><strong>"Continue as guest"</strong> — a public, read-only view of the seeded demo workspace at <span class="mono">/demo</span>, no account needed.</li>
+    <li><strong>New-workspace example content</strong> — every fresh signup now gets a starter page tree instead of a blank workspace, mirroring Notion's own "Getting Started" default.</li>
+    <li><strong>Color and a real home dashboard</strong> — a deterministic color per top-level page, colored status pills in tables, and <span class="mono">/app</span> rebuilt as an actual dashboard instead of an empty state.</li>
+    <li><strong>A real, editable table block</strong> — columns, rows, and cells, all persisted, plus richer example content to give the new coloring something to work with.</li>
+    <li><strong>A mock form builder block</strong> — cover, icon, editable fields, Preview/Share UI. At this point still fully mocked, no response storage.</li>
+    <li><strong>Notion-style row detail view</strong> — click "Open" on a table row to see it as its own page: a big title, every other column as a labeled property, plus comments (at this point, local-device-only via <span class="mono">localStorage</span>).</li>
+    <li><strong>Grouped, collapsible home sections</strong> — root pages get an optional <span class="mono">section</span> field; the dashboard groups them into named, collapsible sections instead of one flat grid.</li>
+    <li><strong>A monospace code/diagram block</strong>, plus a two-page example to demonstrate it, and a code-block example added to the very first page every user sees.</li>
+    <li><strong>A ten-item batch, all in one pass</strong> — page icons; drag-to-reorder blocks and drag-pages-between-sections; sidebar search; page templates (via a generic duplicate-page endpoint); a short page-activity log; poll-based page presence ("who's viewing this page"); real, server-side row comments (replacing the local-only version); page locking (a narrower stand-in for full permissions); and real form responses.</li>
+    <li><strong>Landing page copy pass</strong> — repositioned from "a team wiki" to "inspired by Notion," corrected on request to not claim Minimal <em>is</em> Notion, and em dashes removed from the copy.</li>
+    <li><strong>Reorganized into its own folder</strong> — <span class="mono">server/</span>, <span class="mono">client/</span>, and <span class="mono">docs/</span> moved into a self-contained project folder, matching the <span class="mono">examples/ghost-lite</span> convention used elsewhere in Sprint Zero.</li>
+    <li><strong>An Obsidian-style knowledge layer</strong> — backlinks ("Linked mentions" on every page) and a graph view of the whole workspace, computed live from internal links that already existed as plain substrings in block content. No new storage.</li>
+  </ol>
+
+  <h3>What's real vs. what's a deliberate mock, as of now</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Area</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Accounts, workspace, invites, pages, blocks</td><td><span class="pill pass">REAL</span></td></tr>
+      <tr><td>Tables (columns/rows/cells), row comments</td><td><span class="pill pass">REAL</span></td></tr>
+      <tr><td>Form builder structure (fields, cover, title)</td><td><span class="pill note">REAL, cosmetic builder UI</span></td></tr>
+      <tr><td>Form responses (Preview Submit + Responses tab)</td><td><span class="pill pass">REAL</span></td></tr>
+      <tr><td>Page locking, activity log, presence</td><td><span class="pill pass">REAL</span></td></tr>
+      <tr><td>Backlinks and the graph view</td><td><span class="pill pass">REAL, computed live</span></td></tr>
+      <tr><td>Templates</td><td><span class="pill pass">REAL — a template is just a page in a Templates section</span></td></tr>
+      <tr><td>"Share form" link</td><td><span class="pill na">MOCK — copies a non-resolving URL, by design</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><p>Every row above with a caveat is spelled out in full in <span class="mono">docs/decisions.md</span> — this table is a pointer, not a replacement for it.</p></div>
+</section>
+
+<section id="api">
+  <p class="kicker">Reference</p>
+  <h2>The shape of the final API</h2>
+  <div class="measure"><p>Ten resource groups, 31 routes in the current <span class="mono">docs/api-contract.md</span> — the MVP contract covered auth, invites, and plain page/block CRUD; tables, row comments, form responses, page locking/activity/presence, and the knowledge graph were added one amendment at a time afterward. Full field-by-field detail lives in <span class="mono">docs/api-contract.md</span>.</p></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Group</th><th>Covers</th></tr></thead>
+    <tbody>
+      <tr><td>Auth</td><td><span class="method post">POST</span> signup/login, <span class="method">GET</span> /auth/me</td></tr>
+      <tr><td>Workspace</td><td>invite by email, list members</td></tr>
+      <tr><td>Pages</td><td>list/create/read/update/delete, duplicate (the template mechanism), locking</td></tr>
+      <tr><td>Page activity &amp; presence</td><td>a short human-readable change log; poll-based "who's viewing"</td></tr>
+      <tr><td>Blocks</td><td>text, heading, checklist, bulleted_list, table, form, code</td></tr>
+      <tr><td>Tables</td><td>columns, rows, cells — full CRUD nested under a table block</td></tr>
+      <tr><td>Row comments</td><td>real, server-side, shared across the workspace</td></tr>
+      <tr><td>Form responses</td><td>submit + read back — the one real part of the mock form block</td></tr>
+      <tr><td>Knowledge graph</td><td>workspace graph, per-page backlinks — computed live, no separate index</td></tr>
+      <tr><td>Guest demo</td><td>read-only, unauthenticated, scoped to the seeded demo workspace</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="run">
+  <p class="kicker">Try it</p>
+  <h2>Run it yourself</h2>
+  <div class="measure"><p>No accounts, no keys. Two terminals, from <span class="mono">Minimal/</span>.</p></div>
+<pre><code># terminal 1
+cd server && npm install && node seed.js && node index.js   # API on :3001
+
+# terminal 2
+cd client && npm install && npm run dev                      # app on :5173</code></pre>
+  <div class="measure">
+    <p>Log in as <span class="mono">amara@traversaal.ai</span> / <span class="mono">password123</span> (or <span class="mono">leo@traversaal.ai</span> / <span class="mono">password123</span>), or click <strong>Continue as guest</strong> for a no-account read-only tour.</p>
+  </div>
+
+  <h3>Where to read more</h3>
+  <ul class="plain">
+    <li><span class="mono">docs/build-record.md</span> — this record's source, in plain markdown.</li>
+    <li><span class="mono">docs/decisions.md</span> — the reasoning behind every cut and every later addition, in full.</li>
+    <li><span class="mono">docs/api-contract.md</span> — the authoritative, route-by-route reference.</li>
+    <li><span class="mono">README.md</span> — what's built, at a glance.</li>
+  </ul>
+</section>
+
+</main>
+<footer class="wrap">
+  Reference: Notion, by Notion Labs. Built with Sprint Zero, the Module 2 capstone of the Agent Engineering Bootcamp. Every specification document and every line of application code described in this record was produced by the Sprint Zero pipeline and the conversation that followed it; nothing was authored by hand to look like a run. No screenshots are embedded in this record — run the app locally (above) to see it.
+</footer>
+
+</body>
+</html>
