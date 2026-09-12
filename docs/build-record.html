@@ -100,7 +100,7 @@ footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--hair);
 <div class="masthead">
   <div class="kicker">Sprint Zero &middot; Build record</div>
   <h1>Minimal: what got built, and how it holds up</h1>
-  <p class="standfirst">A self-hosted Notion, scoped against Notion itself, then pushed well past the Sprint Zero MVP and given a knowledge layer Notion does not have. This is the run verified end to end on a clean clone.</p>
+  <p class="standfirst">Notion meets Obsidian: a self-hosted workspace with Notion's editing model and Obsidian's knowledge layer, scoped through Sprint Zero and pushed well past the MVP. This is the run verified end to end on a clean clone.</p>
   <div class="meta">
     <span class="pill mono">traversaal-ai/minimal @ 7594576</span>
     <span class="pill mono">verified 12 September 2026</span>
@@ -111,10 +111,11 @@ footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--hair);
 </div>
 
 <h2><span class="n">01</span>The thesis</h2>
-<p class="lead-in">Reverse-engineer Notion, then add the thing Notion does not give you: a map of how your pages actually connect.</p>
-<p>Sprint Zero scoped this against <code>notion.so</code> as the reference product and built the ordinary wiki core first: accounts, a shared workspace, nested pages, blocks, invites. That part is a faithful, small Notion.</p>
-<p>The interesting half came after. Twelve amendments later the app grew real tables, a form builder, row comments, page locking, presence, templates, and then the piece that makes it more than a Notion clone: an Obsidian-style knowledge layer. Every page carries a <strong>Linked mentions</strong> panel, and the whole workspace renders as a graph. Neither needs new storage. Internal links already existed as plain substrings inside block content, so backlinks and the graph are both computed live by scanning what is already there.</p>
-<p>That is the honest summary of the product. The rest of this document is what I could confirm by running it.</p>
+<p class="lead-in">Two reference products, not one. Notion supplies the editing model. Obsidian supplies the way the pages connect. Minimal is the overlap, self-hosted.</p>
+<p><strong>The Notion half</strong> is what Sprint Zero scoped and built first, against <code>notion.so</code> as the stated reference: accounts, a shared workspace, nested pages, blocks, invites. Twelve amendments later it also has real tables with a row detail view, a form builder, row comments, page locking, presence, templates, and a sectioned dashboard. As a small self-hosted Notion it is faithful.</p>
+<p><strong>The Obsidian half</strong> is what makes it a different product rather than a clone. Every page carries a <strong>Linked mentions</strong> panel, and the whole workspace renders as a graph. Obsidian's central idea is that the links between your notes are themselves the valuable structure, and that is the idea Notion does not give you.</p>
+<p>The neat part is how cheaply the second half sits on the first. Neither backlinks nor the graph needed new storage. Internal links already existed as plain substrings inside block content, so both are computed live by scanning what Notion-style editing had already produced. One product's data model, read through the other product's lens.</p>
+<p>That is the summary. The rest of this document is what I could confirm by running it.</p>
 
 <h2><span class="n">02</span>What got built</h2>
 
