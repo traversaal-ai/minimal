@@ -4,6 +4,8 @@ Notion meets Obsidian: a self-hosted, simplified Notion — nested pages, a shar
 
 Everything here is a real, working build — not a mock — except where explicitly noted (the `form` block's builder/share UI, and a few narrower cuts documented in `docs/decisions.md`).
 
+![The Minimal workspace: pages grouped into named sections, each with its own color](docs/images/dashboard.jpg)
+
 ## Quick start
 
 ```bash
@@ -32,6 +34,19 @@ Or click **Continue as guest** on the landing page for a read-only tour with no 
 - Templates (save any page as one, start a new page from one)
 - An Obsidian-style knowledge layer: backlinks ("Linked mentions") on every page, and a whole-workspace graph view
 - A public, read-only guest demo (`/demo`) mirroring the real seeded workspace
+
+## What it looks like
+
+| | |
+|---|---|
+| ![Landing page](docs/images/landing.jpg) | ![Guest demo](docs/images/guest-demo.jpg) |
+| **Landing page.** Positioned as inspired by Notion, with a no-account read-only tour behind "Continue as guest". | **Guest demo (`/demo`).** The seeded workspace, read-only, no sign-up. |
+| ![Table block](docs/images/table-block.jpg) | ![Graph view](docs/images/graph.jpg) |
+| **A real table block.** Columns, rows and cells all persisted, with colored status pills and a Notion-style row detail view. | **The graph.** Every page in the workspace, connected wherever one links to another, computed live from block content. |
+
+![A documentation page using the monospace code and diagram block](docs/images/code-block.jpg)
+
+*The monospace code and diagram block, used here for a two-part AI engineering example.*
 
 ## Where things are
 

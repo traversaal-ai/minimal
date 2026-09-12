@@ -4,247 +4,271 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Minimal Build Record</title>
-</head>
-<body>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>body{margin:0}img{max-width:100%}</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-  :root {
-    --ground: #ffffff;
-    --ink: #15171a;
-    --ink-2: #6e6b68;
-    --ink-3: #9b9793;
-    --hair: #e7e3de;
-    --panel: #faf8f6;
-    --accent: #6a5cff;
-    --accent-deep: #4a3ad1;
-    --accent-tint: #f0eeff;
-    --pass: #1f7a46;
-    --pass-tint: #e9f5ee;
-    --warn: #9a5b00;
-    --warn-tint: #fff6e5;
-    --mark: #e6e2ff;
-    --hero-shade: rgba(21, 23, 26, 0.72);
-    --display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
-    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
-    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --ground: #141517; --ink: #ecebe8; --ink-2: #a9a6a1; --ink-3: #7b7873;
-      --hair: #2a2c30; --panel: #1b1d20; --accent: #8f84ff; --accent-deep: #b0a8ff;
-      --accent-tint: #211f33; --pass: #5fcf8a; --pass-tint: #16261c; --warn: #f0b64a; --warn-tint: #2a2214;
-      --mark: #322d55; --hero-shade: rgba(20, 21, 23, 0.8);
-    }
-  }
-  :root[data-theme="dark"] {
-    --ground: #141517; --ink: #ecebe8; --ink-2: #a9a6a1; --ink-3: #7b7873;
-    --hair: #2a2c30; --panel: #1b1d20; --accent: #8f84ff; --accent-deep: #b0a8ff;
-    --accent-tint: #211f33; --pass: #5fcf8a; --pass-tint: #16261c; --warn: #f0b64a; --warn-tint: #2a2214;
-    --mark: #322d55; --hero-shade: rgba(20, 21, 23, 0.8);
-  }
-  * { box-sizing: border-box; }
-  body { background: var(--ground); color: var(--ink); font-family: var(--serif); font-size: 18px; line-height: 1.6; margin: 0; -webkit-font-smoothing: antialiased; }
-  a { color: var(--accent-deep); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
-  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+:root{
+  --ground:#ffffff; --ink:#15171a; --ink-2:#6e6b68; --ink-3:#9b9793;
+  --hair:#e7e3de; --panel:#faf8f6; --accent:#6a5cff; --accent-deep:#4a3ad1;
+  --accent-tint:#f0eeff; --pass:#1f7a46; --pass-tint:#e9f5ee;
+  --warn:#9a5b00; --warn-tint:#fff6e5; --fail:#a3231b; --fail-tint:#fceceb;
+  --mark:#e6e2ff; --shot-edge:#e7e3de;
+  --display:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#141517; --ink:#ecebe8; --ink-2:#a9a6a1; --ink-3:#7b7873;
+  --hair:#2a2c30; --panel:#1b1d20; --accent:#8f84ff; --accent-deep:#b0a8ff;
+  --accent-tint:#211f33; --pass:#5fcf8a; --pass-tint:#16261c;
+  --warn:#f0b64a; --warn-tint:#2a2214; --fail:#f08a80; --fail-tint:#2c1917;
+  --mark:#322d55; --shot-edge:#2a2c30;
+}}
+:root[data-theme="dark"]{
+  --ground:#141517; --ink:#ecebe8; --ink-2:#a9a6a1; --ink-3:#7b7873;
+  --hair:#2a2c30; --panel:#1b1d20; --accent:#8f84ff; --accent-deep:#b0a8ff;
+  --accent-tint:#211f33; --pass:#5fcf8a; --pass-tint:#16261c;
+  --warn:#f0b64a; --warn-tint:#2a2214; --fail:#f08a80; --fail-tint:#2c1917;
+  --mark:#322d55; --shot-edge:#2a2c30;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--serif);
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:830px;margin:0 auto;padding:0 26px 96px}
+.mono{font-family:var(--mono)}
 
-  .hero { position: relative; min-height: 300px; display: grid; align-items: end; background: var(--ink); color: #fff; overflow: hidden; }
-  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, #201c3a 0%, #15171a 60%); }
-  .hero-inner { position: relative; z-index: 1; width: min(1100px, 100% - 64px); margin: 0 auto; padding: 120px 0 44px; }
-  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
-  .hero h1 { font-family: var(--display); font-weight: 800; font-size: clamp(40px, 6vw, 72px); line-height: 0.98; letter-spacing: -0.03em; margin: 0 0 18px; text-wrap: balance; max-width: 18ch; }
-  .hero p.lede { font-size: 20px; line-height: 1.45; max-width: 62ch; margin: 0 0 22px; color: rgba(255,255,255,0.88); }
-  .hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--mono); font-size: 12.5px; color: rgba(255,255,255,0.7); }
-  .hero .meta a { color: rgba(255,255,255,0.85); text-decoration-color: rgba(255,255,255,0.4); }
+.masthead{padding:56px 0 0}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:16px}
+h1{font-family:var(--display);font-weight:800;font-size:45px;line-height:1.08;letter-spacing:-.022em;margin:0 0 16px;text-wrap:balance}
+.standfirst{font-size:20px;line-height:1.5;color:var(--ink-2);margin:0 0 26px;max-width:62ch}
+.meta{display:flex;flex-wrap:wrap;gap:9px;padding-bottom:30px;border-bottom:1px solid var(--hair)}
+.pill{font-family:var(--mono);font-size:11.5px;padding:4px 10px;border-radius:13px;border:1px solid var(--hair);color:var(--ink-2);background:var(--panel)}
+.pill.ok{color:var(--pass);background:var(--pass-tint);border-color:var(--pass)}
+.pill.no{color:var(--fail);background:var(--fail-tint);border-color:var(--fail)}
 
-  .wrap { width: min(1100px, 100% - 64px); margin: 0 auto; }
-  .measure { max-width: 70ch; }
-  section { padding: 56px 0 8px; }
-  section + section { border-top: 1px solid var(--hair); margin-top: 48px; }
-  h2 { font-family: var(--display); font-weight: 800; font-size: 34px; letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 10px; text-wrap: balance; }
-  h3 { font-family: var(--display); font-weight: 700; font-size: 20px; letter-spacing: -0.01em; margin: 40px 0 10px; }
-  p { margin: 0 0 18px; }
-  .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 12px; }
-  .sub { color: var(--ink-2); font-size: 19px; }
-  code, .mono { font-family: var(--mono); font-size: 0.85em; }
-  code { background: var(--panel); border: 1px solid var(--hair); border-radius: 4px; padding: 1px 6px; }
-  pre { background: var(--panel); border: 1px solid var(--hair); border-radius: 6px; padding: 16px 18px; overflow-x: auto; font-family: var(--mono); font-size: 13.5px; line-height: 1.6; margin: 14px 0 22px; }
-  pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+h2{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.015em;margin:52px 0 6px;text-wrap:balance}
+h2 .n{font-family:var(--mono);font-size:13px;color:var(--accent-deep);display:block;letter-spacing:.1em;margin-bottom:7px;font-weight:500}
+h3{font-family:var(--display);font-weight:700;font-size:19px;margin:32px 0 8px;letter-spacing:-.01em}
+p{margin:0 0 15px;max-width:66ch}
+strong{font-weight:600}
+a{color:var(--accent-deep);text-underline-offset:2px}
+ul,ol{margin:0 0 16px;padding-left:22px;max-width:66ch}
+li{margin-bottom:7px}
+code{font-family:var(--mono);font-size:.85em;background:var(--panel);border:1px solid var(--hair);padding:1px 5px;border-radius:3px}
+mark{background:var(--mark);color:inherit;padding:0 3px;border-radius:2px}
 
-  .strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border: 1px solid var(--hair); border-radius: 6px; overflow: hidden; margin: 28px 0 8px; }
-  .strip div { padding: 18px 20px; border-right: 1px solid var(--hair); background: var(--panel); }
-  .strip div:last-child { border-right: 0; }
-  .strip b { display: block; font-family: var(--display); font-weight: 800; font-size: 30px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; margin-bottom: 6px; }
-  .strip span { font-family: var(--mono); font-size: 12px; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; }
+.lead-in{font-family:var(--display);font-size:15px;font-weight:500;color:var(--ink-2);border-left:3px solid var(--accent);padding-left:14px;margin:0 0 22px;max-width:62ch;line-height:1.5}
 
-  .tablewrap { overflow-x: auto; margin: 16px 0 24px; }
-  table { border-collapse: collapse; width: 100%; font-size: 15.5px; }
-  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--hair); vertical-align: top; }
-  th { font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: 0.02em; color: var(--ink-2); }
-  td.num { font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: 13.5px; }
-  td .mono, th .mono { font-size: 13.5px; }
-  .method { display: inline-block; font-family: var(--mono); font-size: 11.5px; font-weight: 500; padding: 1px 7px; border-radius: 3px; border: 1px solid var(--hair); color: var(--ink-2); min-width: 54px; text-align: center; }
-  .method.post { color: var(--accent-deep); border-color: var(--accent); }
-  .method.put { color: var(--warn); border-color: var(--warn); }
-  .method.delete { color: #b3261e; border-color: #b3261e; }
+figure{margin:26px 0 30px}
+figure img{width:100%;display:block;border:1px solid var(--shot-edge);border-radius:7px}
+figcaption{font-family:var(--display);font-size:13px;color:var(--ink-3);margin-top:9px;line-height:1.45}
+figcaption b{color:var(--ink-2);font-weight:600}
 
-  .pill { display: inline-block; font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.04em; padding: 2px 9px; border-radius: 999px; border: 1px solid; white-space: nowrap; }
-  .pass { color: var(--pass); background: var(--pass-tint); border-color: transparent; }
-  .na { color: var(--ink-3); background: var(--panel); border-color: var(--hair); }
-  .note { color: var(--warn); background: var(--warn-tint); border-color: transparent; }
+pre{background:var(--panel);border:1px solid var(--hair);border-radius:7px;padding:15px 17px;
+  overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.62;margin:0 0 18px}
+pre .p{color:var(--pass)} pre .f{color:var(--fail);font-weight:500} pre .d{color:var(--ink-3)}
 
-  ol.steps { counter-reset: s; list-style: none; padding: 0; margin: 12px 0 24px; }
-  ol.steps li { counter-increment: s; position: relative; padding: 12px 0 12px 48px; border-bottom: 1px solid var(--hair); }
-  ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 16px; font-family: var(--mono); font-size: 13px; color: var(--accent-deep); }
-  ul.plain { padding-left: 1.1em; margin: 0 0 18px; }
-  ul.plain li { margin: 6px 0; }
-  .callout { border-left: 3px solid var(--accent); background: var(--accent-tint); padding: 14px 18px; margin: 20px 0 24px; border-radius: 0 6px 6px 0; }
-  .callout p:last-child { margin: 0; }
-  mark { background: var(--mark); color: inherit; padding: 0 2px; }
-  footer { border-top: 1px solid var(--hair); margin-top: 56px; padding: 28px 0 60px; font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); line-height: 1.7; }
+.tblwrap{overflow-x:auto;margin:0 0 20px}
+table{border-collapse:collapse;width:100%;font-family:var(--display);font-size:14px}
+th,td{border-bottom:1px solid var(--hair);padding:9px 11px;text-align:left;vertical-align:top}
+th{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+td.s{white-space:nowrap;font-family:var(--mono);font-size:12px}
+.yes{color:var(--pass)} .no{color:var(--fail)} .part{color:var(--warn)}
+
+.callout{border:1px solid var(--hair);border-left:3px solid var(--warn);background:var(--warn-tint);
+  border-radius:0 7px 7px 0;padding:16px 18px;margin:0 0 22px}
+.callout.bad{border-left-color:var(--fail);background:var(--fail-tint)}
+.callout.good{border-left-color:var(--pass);background:var(--pass-tint)}
+.callout h4{font-family:var(--display);font-size:14px;margin:0 0 6px;font-weight:700;letter-spacing:.01em}
+.callout p{font-size:15px;margin:0 0 9px}
+.callout p:last-child{margin:0}
+
+.scoreline{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 22px}
+.score{flex:1 1 150px;border:1px solid var(--hair);border-radius:7px;padding:13px 15px;background:var(--panel)}
+.score .big{font-family:var(--display);font-size:27px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+.score .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:3px}
+.score.ok .big{color:var(--pass)} .score.no .big{color:var(--fail)} .score.mid .big{color:var(--warn)}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--hair);
+  font-family:var(--display);font-size:13px;color:var(--ink-3);line-height:1.65}
 </style>
 
-<header class="hero">
-  <div class="hero-inner">
-    <p class="eyebrow">Sprint Zero · worked example · Minimal</p>
-    <h1>What got built, and how it kept going</h1>
-    <p class="lede">One Sprint Zero run against Notion produced a real shared-workspace MVP in about twenty minutes. Everything after that — twelve rounds of features, one at a time, in conversation — is the part this record is really about.</p>
-    <div class="meta">
-      <span>Reference: <a href="https://www.notion.so">notion.so</a></span>
-      <span>Stack: node-react · local (SQLite + self-issued JWT)</span>
-      <span>Level: MVP</span>
-    </div>
+</head>
+<body>
+<div class="wrap">
+<div class="masthead">
+  <div class="kicker">Sprint Zero &middot; Build record</div>
+  <h1>Minimal: what got built, and how it holds up</h1>
+  <p class="standfirst">A self-hosted Notion, scoped against Notion itself, then pushed well past the Sprint Zero MVP and given a knowledge layer Notion does not have. This is the run verified end to end on a clean clone.</p>
+  <div class="meta">
+    <span class="pill mono">traversaal-ai/minimal @ 7594576</span>
+    <span class="pill mono">verified 12 September 2026</span>
+    <span class="pill ok mono">API 23/23</span>
+    <span class="pill no mono">browser 18/19</span>
+    <span class="pill mono">31 endpoints</span>
   </div>
-</header>
+</div>
 
-<main class="wrap">
+<h2><span class="n">01</span>The thesis</h2>
+<p class="lead-in">Reverse-engineer Notion, then add the thing Notion does not give you: a map of how your pages actually connect.</p>
+<p>Sprint Zero scoped this against <code>notion.so</code> as the reference product and built the ordinary wiki core first: accounts, a shared workspace, nested pages, blocks, invites. That part is a faithful, small Notion.</p>
+<p>The interesting half came after. Twelve amendments later the app grew real tables, a form builder, row comments, page locking, presence, templates, and then the piece that makes it more than a Notion clone: an Obsidian-style knowledge layer. Every page carries a <strong>Linked mentions</strong> panel, and the whole workspace renders as a graph. Neither needs new storage. Internal links already existed as plain substrings inside block content, so backlinks and the graph are both computed live by scanning what is already there.</p>
+<p>That is the honest summary of the product. The rest of this document is what I could confirm by running it.</p>
 
-<section id="brief">
-  <p class="kicker">The ask</p>
-  <h2>The smallest real version of a team wiki</h2>
-  <div class="measure">
-    <p class="sub">Notion is a vast product — databases, real-time multiplayer, dozens of block types, granular sharing, templates, a gallery. Sprint Zero was pointed at it and scoped down hard: one shared workspace per team, pages that nest under other pages, three block types to start (text, heading, checklist), and teammates invited by email who can all view and edit the same pages.</p>
-    <p>Thirteen things were named and excluded up front so the agents couldn't wander: real-time multiplayer editing, granular roles, rich formatting, file uploads, templates, full-text search, version history, public share links, and more — all logged in <span class="mono">docs/scope.md</span>. The seed is real: a demo workspace ("Traversaal Team Wiki") with two demo members and a small real page tree — an Onboarding page with two nested sub-pages, and a Team norms page with checklist items already ticked.</p>
-  </div>
-  <div class="strip">
-    <div><b>6</b><span>spec docs written</span></div>
-    <div><b>31</b><span>API endpoints, final</span></div>
-    <div><b>~6,024</b><span>lines of app code</span></div>
-    <div><b>7</b><span>block types, final</span></div>
-    <div><b>12</b><span>features added after MVP</span></div>
-    <div><b>23/23</b><span>API tests at MVP</span></div>
-  </div>
-</section>
+<h2><span class="n">02</span>What got built</h2>
 
-<section id="built">
-  <p class="kicker">Part one</p>
-  <h2>The initial Sprint Zero run</h2>
+<h3>The specification set, written in order</h3>
+<p>Seven documents in <code>docs/</code>, each feeding the next. This is the Sprint Zero pipeline artifact, and it is the reason the build stayed coherent across twelve rounds of additions.</p>
+<div class="tblwrap"><table>
+<thead><tr><th>File</th><th>What it fixes</th><th>Size</th></tr></thead>
+<tbody>
+<tr><td class="mono">scope.md</td><td>Reference product, stack, build level, the core loop, and an explicit exclude list</td><td class="s">2.1 KB</td></tr>
+<tr><td class="mono">reference-brief.md</td><td>What Notion actually does, as the thing being matched</td><td class="s">2.8 KB</td></tr>
+<tr><td class="mono">prd.md</td><td>The product requirements the build was held to</td><td class="s">8.0 KB</td></tr>
+<tr><td class="mono">user-stories.md</td><td>Stories with acceptance criteria</td><td class="s">9.9 KB</td></tr>
+<tr><td class="mono">api-contract.md</td><td>The authoritative route-by-route reference, now 31 endpoints</td><td class="s">17.1 KB</td></tr>
+<tr><td class="mono">decisions.md</td><td>Every scope cut and every later amendment, each with its reasoning</td><td class="s">24.6 KB</td></tr>
+<tr><td class="mono">build-record.md</td><td>What got built, in the order it happened</td><td class="s">5.7 KB</td></tr>
+</tbody></table></div>
+<p><code>decisions.md</code> is the one to read. It is the largest file in the set, and it is larger than the PRD for a good reason: on a build that kept changing, the record of <em>why</em> outlived the record of <em>what</em>.</p>
 
-  <h3>The specification set, written in order</h3>
-  <div class="measure"><p>Nothing was coded until six documents existed, each written by an agent reading the ones before it — the last, the API contract, is the only file both engineers were allowed to build from.</p></div>
-  <div class="tablewrap"><table>
-    <thead><tr><th>Document</th><th>What it settles</th></tr></thead>
-    <tbody>
-      <tr><td><span class="mono">scope.md</span></td><td>Reference (Notion), build config (web-app / node-react / local), MVP level, the core loop, and twenty excludes.</td></tr>
-      <tr><td><span class="mono">reference-brief.md</span></td><td>How Notion actually works — pages, blocks, workspaces, sharing — extracted as the surface worth cloning a sliver of.</td></tr>
-      <tr><td><span class="mono">prd.md</span></td><td>Named the product Minimal: one shared workspace per team, nested pages, three starting block types, email invites, self-hostable with no external account.</td></tr>
-      <tr><td><span class="mono">decisions.md</span></td><td>Every scope cut tied to the MVP level — the seed for what would later become a long, running amendment log.</td></tr>
-      <tr><td><span class="mono">user-stories.md</span></td><td>Acceptance criteria for the core loop: signup, create/nest pages, add blocks, invite, shared edit visible on reload.</td></tr>
-      <tr><td><span class="mono">api-contract.md</span></td><td>The shared interface both engineers built to — the same file that later grew to 31 endpoints across nine resource groups as features were added.</td></tr>
-    </tbody>
-  </table></div>
+<h3>The app</h3>
+<p>Everything below is the seeded demo workspace on a clean clone, captured while running. No mockups.</p>
 
-  <h3>The core loop, and what QA found</h3>
-  <div class="measure">
-    <p>A user signs up and lands in a workspace. They create a page, nest it under another page, and add text, heading, and checklist blocks. They invite a teammate by email; that teammate signs up (or logs in), sees the same workspace, opens any page in it, and edits a page another member created — visible to everyone on reload.</p>
-    <p>QA passed 23/23 API integration tests and 19/19 browser steps (full auth dance, core loop, expired-token handling) — and caught one real bug along the way: the "Add block" button stayed disabled after the first block was added, a missing <span class="mono">setSubmitting(false)</span> on the success path. Fixed before sign-off.</p>
-  </div>
-</section>
+<figure><img src="images/landing.jpg" alt="Minimal landing page">
+<figcaption><b>The landing page.</b> Positioned as inspired by Notion rather than as Notion, a correction made deliberately during the copy pass. "Continue as guest" leads to a read-only tour with no account.</figcaption></figure>
 
-<section id="amendments">
-  <p class="kicker">Part two</p>
-  <h2>Everything added after that, in order</h2>
-  <div class="measure"><p class="sub">Each of these was requested and built one at a time, in conversation, well past a typical Sprint Zero MVP. The full reasoning for each lives in <span class="mono">docs/decisions.md</span> under its own "Amendment" heading — this is the short version, in the order it happened.</p></div>
+<figure><img src="images/dashboard.jpg" alt="The workspace dashboard grouped into named sections">
+<figcaption><b>The dashboard.</b> Root pages grouped into named, collapsible, drag-and-drop sections, each page carrying a deterministic color. Sixteen pages across four sections in the seed.</figcaption></figure>
 
-  <ol class="steps">
-    <li><strong>"Continue as guest"</strong> — a public, read-only view of the seeded demo workspace at <span class="mono">/demo</span>, no account needed.</li>
-    <li><strong>New-workspace example content</strong> — every fresh signup now gets a starter page tree instead of a blank workspace, mirroring Notion's own "Getting Started" default.</li>
-    <li><strong>Color and a real home dashboard</strong> — a deterministic color per top-level page, colored status pills in tables, and <span class="mono">/app</span> rebuilt as an actual dashboard instead of an empty state.</li>
-    <li><strong>A real, editable table block</strong> — columns, rows, and cells, all persisted, plus richer example content to give the new coloring something to work with.</li>
-    <li><strong>A mock form builder block</strong> — cover, icon, editable fields, Preview/Share UI. At this point still fully mocked, no response storage.</li>
-    <li><strong>Notion-style row detail view</strong> — click "Open" on a table row to see it as its own page: a big title, every other column as a labeled property, plus comments (at this point, local-device-only via <span class="mono">localStorage</span>).</li>
-    <li><strong>Grouped, collapsible home sections</strong> — root pages get an optional <span class="mono">section</span> field; the dashboard groups them into named, collapsible sections instead of one flat grid.</li>
-    <li><strong>A monospace code/diagram block</strong>, plus a two-page example to demonstrate it, and a code-block example added to the very first page every user sees.</li>
-    <li><strong>A ten-item batch, all in one pass</strong> — page icons; drag-to-reorder blocks and drag-pages-between-sections; sidebar search; page templates (via a generic duplicate-page endpoint); a short page-activity log; poll-based page presence ("who's viewing this page"); real, server-side row comments (replacing the local-only version); page locking (a narrower stand-in for full permissions); and real form responses.</li>
-    <li><strong>Landing page copy pass</strong> — repositioned from "a team wiki" to "inspired by Notion," corrected on request to not claim Minimal <em>is</em> Notion, and em dashes removed from the copy.</li>
-    <li><strong>Reorganized into its own folder</strong> — <span class="mono">server/</span>, <span class="mono">client/</span>, and <span class="mono">docs/</span> moved into a self-contained project folder, matching the <span class="mono">examples/ghost-lite</span> convention used elsewhere in Sprint Zero.</li>
-    <li><strong>An Obsidian-style knowledge layer</strong> — backlinks ("Linked mentions" on every page) and a graph view of the whole workspace, computed live from internal links that already existed as plain substrings in block content. No new storage.</li>
-  </ol>
+<figure><img src="images/table-block.jpg" alt="A table block with colored status pills">
+<figcaption><b>A real table block.</b> Columns, rows and cells all persisted through the API, not a mock. Status pills are colored by value. Note the page controls above the title: History, Save as template, and the lock toggle, three separate amendments sharing one bar.</figcaption></figure>
 
-  <h3>What's real vs. what's a deliberate mock, as of now</h3>
-  <div class="tablewrap"><table>
-    <thead><tr><th>Area</th><th>Status</th></tr></thead>
-    <tbody>
-      <tr><td>Accounts, workspace, invites, pages, blocks</td><td><span class="pill pass">REAL</span></td></tr>
-      <tr><td>Tables (columns/rows/cells), row comments</td><td><span class="pill pass">REAL</span></td></tr>
-      <tr><td>Form builder structure (fields, cover, title)</td><td><span class="pill note">REAL, cosmetic builder UI</span></td></tr>
-      <tr><td>Form responses (Preview Submit + Responses tab)</td><td><span class="pill pass">REAL</span></td></tr>
-      <tr><td>Page locking, activity log, presence</td><td><span class="pill pass">REAL</span></td></tr>
-      <tr><td>Backlinks and the graph view</td><td><span class="pill pass">REAL, computed live</span></td></tr>
-      <tr><td>Templates</td><td><span class="pill pass">REAL — a template is just a page in a Templates section</span></td></tr>
-      <tr><td>"Share form" link</td><td><span class="pill na">MOCK — copies a non-resolving URL, by design</span></td></tr>
-    </tbody>
-  </table></div>
-  <div class="callout"><p>Every row above with a caveat is spelled out in full in <span class="mono">docs/decisions.md</span> — this table is a pointer, not a replacement for it.</p></div>
-</section>
+<figure><img src="images/graph.jpg" alt="The workspace graph view">
+<figcaption><b>The graph.</b> Sixteen pages, six connections, computed live from links already present in block content. Hovering a node highlights its connections; clicking opens the page.</figcaption></figure>
 
-<section id="api">
-  <p class="kicker">Reference</p>
-  <h2>The shape of the final API</h2>
-  <div class="measure"><p>Ten resource groups, 31 routes in the current <span class="mono">docs/api-contract.md</span> — the MVP contract covered auth, invites, and plain page/block CRUD; tables, row comments, form responses, page locking/activity/presence, and the knowledge graph were added one amendment at a time afterward. Full field-by-field detail lives in <span class="mono">docs/api-contract.md</span>.</p></div>
-  <div class="tablewrap"><table>
-    <thead><tr><th>Group</th><th>Covers</th></tr></thead>
-    <tbody>
-      <tr><td>Auth</td><td><span class="method post">POST</span> signup/login, <span class="method">GET</span> /auth/me</td></tr>
-      <tr><td>Workspace</td><td>invite by email, list members</td></tr>
-      <tr><td>Pages</td><td>list/create/read/update/delete, duplicate (the template mechanism), locking</td></tr>
-      <tr><td>Page activity &amp; presence</td><td>a short human-readable change log; poll-based "who's viewing"</td></tr>
-      <tr><td>Blocks</td><td>text, heading, checklist, bulleted_list, table, form, code</td></tr>
-      <tr><td>Tables</td><td>columns, rows, cells — full CRUD nested under a table block</td></tr>
-      <tr><td>Row comments</td><td>real, server-side, shared across the workspace</td></tr>
-      <tr><td>Form responses</td><td>submit + read back — the one real part of the mock form block</td></tr>
-      <tr><td>Knowledge graph</td><td>workspace graph, per-page backlinks — computed live, no separate index</td></tr>
-      <tr><td>Guest demo</td><td>read-only, unauthenticated, scoped to the seeded demo workspace</td></tr>
-    </tbody>
-  </table></div>
-</section>
+<figure><img src="images/code-block.jpg" alt="A documentation page using the monospace code block">
+<figcaption><b>The monospace code and diagram block.</b> Added to demonstrate whitespace-preserving content, then used for a two-part AI engineering example that also gives the graph something real to connect.</figcaption></figure>
 
-<section id="run">
-  <p class="kicker">Try it</p>
-  <h2>Run it yourself</h2>
-  <div class="measure"><p>No accounts, no keys. Two terminals, from <span class="mono">Minimal/</span>.</p></div>
-<pre><code># terminal 1
-cd server && npm install && node seed.js && node index.js   # API on :3001
+<figure><img src="images/guest-demo.jpg" alt="The public read-only guest view">
+<figcaption><b>The guest view at <code>/demo</code>.</b> The same seeded workspace, read-only, no account. It has its own two endpoints rather than reusing the authenticated ones.</figcaption></figure>
 
-# terminal 2
-cd client && npm install && npm run dev                      # app on :5173</code></pre>
-  <div class="measure">
-    <p>Log in as <span class="mono">amara@traversaal.ai</span> / <span class="mono">password123</span> (or <span class="mono">leo@traversaal.ai</span> / <span class="mono">password123</span>), or click <strong>Continue as guest</strong> for a no-account read-only tour.</p>
-  </div>
+<h3>The thirty-one endpoints</h3>
+<p>An Express API over SQLite, with a self-issued JWT. <code>server/index.js</code> is 1,622 lines and carries all of it. The route surface grew from the MVP core loop to this:</p>
+<div class="tblwrap"><table>
+<thead><tr><th>Group</th><th>Routes</th><th>Came from</th></tr></thead>
+<tbody>
+<tr><td>Auth and workspace</td><td class="s">5</td><td>Initial build</td></tr>
+<tr><td>Pages and blocks</td><td class="s">10</td><td>Initial build, plus duplicate, activity and presence</td></tr>
+<tr><td>Tables</td><td class="s">7</td><td>Amendment: a real table block</td></tr>
+<tr><td>Row comments</td><td class="s">2</td><td>Amendment: the ten-item batch</td></tr>
+<tr><td>Form responses</td><td class="s">2</td><td>Amendment: the ten-item batch</td></tr>
+<tr><td>Knowledge layer</td><td class="s">2</td><td>Amendment: backlinks and graph</td></tr>
+<tr><td>Guest demo</td><td class="s">3</td><td>Amendment: continue as guest</td></tr>
+</tbody></table></div>
 
-  <h3>Where to read more</h3>
-  <ul class="plain">
-    <li><span class="mono">docs/build-record.md</span> — this record's source, in plain markdown.</li>
-    <li><span class="mono">docs/decisions.md</span> — the reasoning behind every cut and every later addition, in full.</li>
-    <li><span class="mono">docs/api-contract.md</span> — the authoritative, route-by-route reference.</li>
-    <li><span class="mono">README.md</span> — what's built, at a glance.</li>
-  </ul>
-</section>
+<h2><span class="n">03</span>How we tested it</h2>
+<p class="lead-in">Both suites were run today against a clean clone at 7594576, not quoted from the original build.</p>
 
-</main>
-<footer class="wrap">
-  Reference: Notion, by Notion Labs. Built with Sprint Zero, the Module 2 capstone of the Agent Engineering Bootcamp. Every specification document and every line of application code described in this record was produced by the Sprint Zero pipeline and the conversation that followed it; nothing was authored by hand to look like a run. No screenshots are embedded in this record — run the app locally (above) to see it.
+<div class="scoreline">
+  <div class="score ok"><div class="big">23/23</div><div class="lbl">API integration</div></div>
+  <div class="score no"><div class="big">18/19</div><div class="lbl">Browser steps</div></div>
+  <div class="score mid"><div class="big">10/31</div><div class="lbl">Endpoints covered</div></div>
+</div>
+
+<h3>The integration suite passes, in full</h3>
+<p>Twenty-three assertions over the core loop, using native <code>fetch</code> against a running server. No framework.</p>
+<pre><span class="p">PASS</span>: signup: 201 for new user
+<span class="p">PASS</span>: signup: duplicate email rejected 409
+<span class="p">PASS</span>: login: wrong password rejected 401
+<span class="p">PASS</span>: negative: GET /pages without token -&gt; 401
+<span class="p">PASS</span>: negative: GET /pages with invalid token -&gt; 401
+<span class="p">PASS</span>: pages: create nested child page
+<span class="p">PASS</span>: blocks: toggle checklist item checked
+<span class="p">PASS</span>: invite: invited email joins the inviting workspace on signup (not a new one)
+<span class="p">PASS</span>: invite: pre-existing signup unrelated to invite gets its own workspace
+<span class="d">... 14 more ...</span>
+
+Total: 23, Passed: 23, Failed: 0</pre>
+<p>The invite assertions are the sharp ones. Three of them exist to pin down a single decision recorded in <code>decisions.md</code>: an invite is resolved at signup, not at invite time. The suite checks all three branches, including the case where someone signs up unrelated to any invite and must get their own workspace rather than joining someone else's.</p>
+
+<h3>The browser suite is 18/19, not 19/19</h3>
+<p>A real headless Chromium walk of the UI. The build record claims nineteen of nineteen. Today one step fails.</p>
+<pre><span class="p">PASS</span>: signup lands in /app
+<span class="p">PASS</span>: expired token: reload + protected nav redirects to /login, no crash
+<span class="p">PASS</span>: nested sub-page appears in page-tree
+  <span class="d">[network] POST /pages/:id/blocks -&gt; 201</span>
+<span class="f">FAIL</span>: text block renders after adding
+<span class="p">PASS</span>: checklist block renders with a checkbox after adding
+<span class="p">PASS</span>: checklist checkbox toggles on click
+<span class="p">PASS</span>: seeded user's existing page tree still loads correctly
+
+Total: 19, Passed: 18, Failed: 1</pre>
+
+<div class="callout good">
+<h4>That failure is the test, not the app</h4>
+<p>Worth chasing down, because a red step in a build record is worthless without a verdict. The block is created and stored correctly: the POST returns 201, and reading the page back through the API shows the text block present with the right content. It also renders on screen and survives a reload.</p>
+<p>The assertion looks in the wrong place. The test checks the values of <code>&lt;input&gt;</code> elements, and its own comment explains why: <em>"Block content renders as an <code>&lt;input value="..."&gt;</code>, not text nodes."</em> That was true when it was written. It is not true now. Probing the live DOM, saved block content renders in a <code>&lt;div&gt;</code> as a text node, with inputs reserved for editing.</p>
+<p>The likely culprit is the knowledge layer. Once internal links had to render as clickable markup inside block content, an <code>&lt;input&gt;</code> could no longer hold it. The checklist step still passes because a checkbox is still an input. Fix the assertion, not the app.</p>
+</div>
+
+<h3>What is not tested at all</h3>
+<p>This is the real gap, and it is larger than one red step. The integration suite covers <strong>10 of the 31 endpoints</strong>. Everything the twelve amendments added is untested.</p>
+<div class="tblwrap"><table>
+<thead><tr><th>Area</th><th>Endpoints</th><th>Automated coverage</th></tr></thead>
+<tbody>
+<tr><td>Auth, workspace, invites</td><td class="s">5</td><td class="yes">Covered</td></tr>
+<tr><td>Pages and blocks, core</td><td class="s">5</td><td class="yes">Covered</td></tr>
+<tr><td>Tables: columns, rows, cells</td><td class="s">7</td><td class="no">None</td></tr>
+<tr><td>Row comments</td><td class="s">2</td><td class="no">None</td></tr>
+<tr><td>Form responses</td><td class="s">2</td><td class="no">None</td></tr>
+<tr><td>Backlinks and graph</td><td class="s">2</td><td class="no">None</td></tr>
+<tr><td>Presence and activity log</td><td class="s">3</td><td class="no">None</td></tr>
+<tr><td>Duplicate and templates</td><td class="s">1</td><td class="no">None</td></tr>
+<tr><td>Guest demo routes</td><td class="s">3</td><td class="no">None</td></tr>
+<tr><td>Page update and delete</td><td class="s">2</td><td class="no">None</td></tr>
+</tbody></table></div>
+<p>Nothing here is broken. I clicked through tables, the graph, the guest view and the code blocks by hand and they all work. But the suite that gives the green number only ever covered the original MVP, and it has not grown with the app. The 23/23 is true and it is narrower than it looks.</p>
+
+<h3>Two things worth fixing</h3>
+<div class="callout">
+<h4>The client origin is hardcoded in the server</h4>
+<p><code>server/index.js</code> pinned CORS to <code>http://localhost:5173</code>. Run the client on any other port and every request fails preflight, with a browser console error and no server-side clue. I hit this immediately, because port 5173 was already busy on this machine, and it cost a full test run to diagnose.</p>
+<p>One line fixes it: <code>origin: process.env.CLIENT_ORIGIN || "http://localhost:5173"</code>. Worth doing before anyone tries to self-host this, which the README explicitly invites.</p>
+</div>
+<div class="callout">
+<h4>Graph labels collide</h4>
+<p>In the graph capture above, "Hiring" overlaps "Part 1: Retrieval-Augm", and "Team norms" overlaps "Website Redesign". At sixteen pages it is cosmetic. At sixty it would make the view unreadable, and the graph is the app's most distinctive screen.</p>
+</div>
+
+<h2><span class="n">04</span>Run it yourself</h2>
+<p>A clean clone, two terminals, about two minutes. This is exactly what was run to produce every figure above.</p>
+<pre>git clone https://github.com/traversaal-ai/minimal.git &amp;&amp; cd minimal
+
+<span class="d"># terminal 1</span>
+cd server &amp;&amp; npm install &amp;&amp; node seed.js &amp;&amp; node index.js   <span class="d"># API on :3001</span>
+
+<span class="d"># terminal 2</span>
+cd client &amp;&amp; npm install &amp;&amp; npm run dev                      <span class="d"># app on :5173</span></pre>
+<p>Log in at <code>localhost:5173</code> as <code>amara@traversaal.ai</code> / <code>password123</code>, or open <code>/demo</code> for the read-only tour. To reproduce the test numbers in this document:</p>
+<pre>node server/tests/integration.test.js                          <span class="d"># 23/23</span>
+npm install --no-save playwright &amp;&amp; npx playwright install chromium
+node server/tests/e2e.mjs                                      <span class="d"># 18/19</span></pre>
+
+<h2><span class="n">05</span>What I would do next</h2>
+<ol>
+<li><strong>Fix the stale assertion</strong> so the browser suite is honestly green. Check rendered text, not input values.</li>
+<li><strong>Make CORS configurable.</strong> One line, and it unblocks the self-hosting story the README promises.</li>
+<li><strong>Extend the integration suite to the amendments.</strong> Tables and the graph are the two worth writing first: tables because they carry the most state, the graph because it is the feature nobody else has.</li>
+<li><strong>Give the graph a label-collision pass</strong> before the workspace outgrows the view.</li>
+</ol>
+<p>None of these are blockers. The app does what the build record says it does, which is the thing this document set out to check.</p>
+
+<footer>
+Built with Sprint Zero. Verified on a clean clone of <span class="mono">traversaal-ai/minimal</span> at <span class="mono">7594576</span> on 12 September 2026, Node v24.2.0. Every figure is a screenshot of that run. Test output is quoted from it, abridged only where marked.
 </footer>
+</div>
 
 </body>
 </html>

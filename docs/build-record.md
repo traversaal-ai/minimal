@@ -50,3 +50,33 @@ cd client && npm install && npm run dev                      # app on :5173
 ```
 
 Log in as `amara@traversaal.ai` / `password123` (or `leo@traversaal.ai` / `password123`), or use `/demo` for the no-account read-only tour. `docs/api-contract.md` is the authoritative route-by-route reference if you want to hit the API directly instead.
+
+## 5. Independent verification, 12 September 2026
+
+The whole thing was re-run from a clean clone at `7594576` on Node v24.2.0. See
+[`build-record.html`](build-record.html) for the illustrated version, with a screenshot of
+every surface described above.
+
+| Check | Result |
+|---|---|
+| API integration suite | 23/23 |
+| Browser suite | 19/19, after the fix below |
+| Endpoints with integration coverage | 10 of 31 |
+
+Three things came out of that run:
+
+1. **The browser suite was failing one step** ("text block renders after adding"). The app was
+   fine: the block is stored, rendered, and survives a reload. The assertion was stale. It checked
+   `<input>` values, and saved block content now renders as a text node in a `<div>`, with inputs
+   used only while editing. That almost certainly changed when the knowledge layer made internal
+   links render as clickable markup inside block content. Fixed by checking both.
+2. **CORS was hardcoded** to `http://localhost:5173`, so running the client on any other port
+   failed preflight with no server-side clue. Now `process.env.CLIENT_ORIGIN` with the same default.
+3. **Test coverage stops at the original MVP.** The 23/23 is real and narrower than it looks: it
+   covers auth, workspace, invites, pages and core blocks. Every endpoint added by the twelve
+   amendments (tables, row comments, form responses, backlinks, the graph, presence, the activity
+   log, templates, and the demo routes) has no automated coverage. Nothing was found broken by
+   hand, but the green number does not speak for those areas.
+
+Graph node labels also overlap where nodes sit close together. Cosmetic at sixteen pages, a
+problem well before sixty.

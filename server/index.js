@@ -28,7 +28,7 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: process.env.CLIENT_ORIGIN || "http://localhost:5173" }));
 
 // express.json() with a custom error handler so malformed bodies match the contract.
 app.use((req, res, next) => {
