@@ -155,11 +155,15 @@ async function main() {
     await page.keyboard.press("Enter");
     await page.waitForTimeout(500);
 
-    // Block content renders as an <input value="...">, not text nodes, so check
-    // input values rather than innerText.
-    const allInputValues = await page.locator("input").evaluateAll((els) => els.map((el) => el.value));
+    // A saved block renders its content as a text node; an <input> holds it only
+    // while that block is being edited. Check both, so this step does not break
+    // again the next time the render path changes.
+    const shownText = await page.evaluate(() => {
+      const inputValues = Array.from(document.querySelectorAll("input")).map((el) => el.value);
+      return inputValues.join("\n") + "\n" + document.body.innerText;
+    });
     ok(
-      allInputValues.includes("This is a QA text block."),
+      shownText.includes("This is a QA text block."),
       "text block renders after adding"
     );
 
